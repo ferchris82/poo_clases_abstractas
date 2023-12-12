@@ -1,9 +1,6 @@
 package org.chrisferdev.pooclasesbstractas.form;
 
-import org.chrisferdev.pooclasesbstractas.form.elementos.ElementoForm;
-import org.chrisferdev.pooclasesbstractas.form.elementos.InputForm;
-import org.chrisferdev.pooclasesbstractas.form.elementos.SelectForm;
-import org.chrisferdev.pooclasesbstractas.form.elementos.TextAreaForm;
+import org.chrisferdev.pooclasesbstractas.form.elementos.*;
 import org.chrisferdev.pooclasesbstractas.form.elementos.select.Opcion;
 
 import java.util.ArrayList;
@@ -21,26 +18,35 @@ public class EjemploForm {
         TextAreaForm experiencia = new TextAreaForm("exp", 5, 9);
 
         SelectForm lenguaje = new SelectForm("lenguaje");
-        Opcion java = new Opcion("1", "Java");
-        lenguaje.addOpcion(java)
+
+        lenguaje.addOpcion(new Opcion("1", "Java"))
                 .addOpcion(new Opcion("2", "Python"))
                 .addOpcion(new Opcion("3", "JavaScript"))
-                .addOpcion(new Opcion("4", "TypeScript"))
+                .addOpcion(new Opcion("4", "TypeScript").setSelected())
                 .addOpcion(new Opcion("5", "PHP"));
 
+        ElementoForm saludar = new ElementoForm("saludo"){
+            @Override
+            public String dibujarHtml() {
+                return "<input disabled name='"+this.nombre+"' value=\"" +this.valor+ "\">";
+            }
+        };
+
+        saludar.setValor("Hola que tal este campo está deshabilitado");
         username.setValor("john.doe");
         password.setValor("123");
         email.setValor("john.doe@correo.com");
         edad.setValor("28");
         experiencia.setValor("... más de 10 años de experiencia ...");
-        java.setSelected(true);
+        //java.setSelected(true);
 
         List<ElementoForm> elementos = Arrays.asList(username,
                 password,
                 email,
                 edad,
                 experiencia,
-                lenguaje);
+                lenguaje,
+                saludar);
 
         elementos.forEach(e -> {
             System.out.println(e.dibujarHtml());
