@@ -31,7 +31,7 @@ public class LargoValidador extends Validador implements MensajeFormateable {
 
     @Override
     public String getMensaje() {
-        return null;
+        return mensaje;
     }
 
     @Override
