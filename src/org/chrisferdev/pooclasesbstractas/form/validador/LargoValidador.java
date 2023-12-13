@@ -1,8 +1,10 @@
 package org.chrisferdev.pooclasesbstractas.form.validador;
 
-public class LargoValidador extends Validador{
+import org.chrisferdev.pooclasesbstractas.form.validador.mensaje.MensajeFormateable;
 
-    protected String mensaje = "el campo debe tener mínimo %d caracteres y máximo %d caracteres";
+public class LargoValidador extends Validador implements MensajeFormateable {
+
+    protected String mensaje = "el campo %s debe tener mínimo %d caracteres y máximo %d caracteres";
     private int min;
     private int max = Integer.MAX_VALUE;
 
@@ -34,11 +36,16 @@ public class LargoValidador extends Validador{
 
     @Override
     public boolean esValido(String valor) {
-        this.mensaje = String.format(this.mensaje, this.min, this.max);
+        //this.mensaje = String.format(this.mensaje, this.min, this.max);
         if(valor == null){
             return true;
         }
         int largo = valor.length();
         return (largo >= min && largo <= max);
+    }
+
+    @Override
+    public String getMensajeFormateado(String campo) {
+        return String.format(this.mensaje, campo, this.min, this.max);
     }
 }
